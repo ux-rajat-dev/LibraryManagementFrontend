@@ -46,9 +46,12 @@ const BorrowTransactions = () => {
     const fetchAll = async () => {
       try {
         const [usersRes, booksRes, txRes] = await Promise.all([
-          axios.get('https://localhost:7193/api/user', config),
-          axios.get('https://localhost:7193/api/Book', config),
-          axios.get('https://localhost:7193/api/borrowtransaction', config),
+          axios.get('https://rlaijbartary1.onrender.com/api/user', config),
+          axios.get('https://rlaijbartary1.onrender.com/api/Book', config),
+          axios.get(
+            'https://rlaijbartary1.onrender.com/api/borrowtransaction',
+            config
+          ),
         ]);
 
         // Ensure we handle both object and array responses
@@ -116,7 +119,7 @@ const BorrowTransactions = () => {
       };
 
       await axios.post(
-        'https://localhost:7193/api/borrowtransaction/borrow',
+        'https://rlaijbartary1.onrender.com/api/borrowtransaction/borrow',
         payload,
         config
       );
@@ -125,7 +128,7 @@ const BorrowTransactions = () => {
       setIsBorrowModalOpen(false);
 
       const txRes = await axios.get(
-        'https://localhost:7193/api/borrowtransaction',
+        'https://rlaijbartary1.onrender.com/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);
@@ -145,14 +148,14 @@ const BorrowTransactions = () => {
     e.preventDefault();
     try {
       await axios.put(
-        'https://localhost:7193/api/borrowtransaction/return',
+        'https://rlaijbartary1.onrender.com/api/borrowtransaction/return',
         returnForm,
         config
       );
       toast.success('✅ Book returned successfully');
       setIsReturnModalOpen(false);
       const txRes = await axios.get(
-        'https://localhost:7193/api/borrowtransaction',
+        'https://rlaijbartary1.onrender.com/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);

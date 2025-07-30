@@ -28,7 +28,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        'https://localhost:7193/api/user/login',
+        'https://rlaijbartary1.onrender.com/api/user/login',
         formData
       );
 

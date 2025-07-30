@@ -26,9 +26,12 @@ const Genres = () => {
 
   const fetchGenres = async () => {
     try {
-      const res = await axios.get('https://localhost:7193/api/Genre', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        'https://rlaijbartary1.onrender.com/api/Genre',
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setGenres(res.data);
     } catch (err) {
       console.error('Error fetching genres:', err);
@@ -51,9 +54,12 @@ const Genres = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this genre?')) {
       try {
-        await axios.delete(`https://localhost:7193/api/Genre/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.delete(
+          `https://rlaijbartary1.onrender.com/api/Genre/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('🗑️ Genre deleted successfully!');
         setGenres(genres.filter((g) => g.genreId !== id));
       } catch (err) {
@@ -69,15 +75,19 @@ const Genres = () => {
     try {
       if (isEditing) {
         await axios.put(
-          'https://localhost:7193/api/Genre',
+          'https://rlaijbartary1.onrender.com/api/Genre',
           { genreId: editGenreId, ...formData },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success('✅ Genre updated successfully!');
       } else {
-        await axios.post('https://localhost:7193/api/Genre', formData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.post(
+          'https://rlaijbartary1.onrender.com/api/Genre',
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('🎉 Genre created successfully!');
       }
 
