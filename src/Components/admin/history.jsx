@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 const History = () => {
   const [transactions, setTransactions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState(null); // dayjs object or null
+  const [selectedMonth, setSelectedMonth] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const History = () => {
     const fetchHistory = async () => {
       try {
         const res = await axios.get(
-          'https://rlaijbartary1.onrender.com:7193/api/borrowtransaction',
+          'https://localhost:7158/api/borrowtransaction',
           config
         );
         const returnedOnly = res.data.filter(

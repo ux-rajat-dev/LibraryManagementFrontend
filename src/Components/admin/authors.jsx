@@ -22,12 +22,9 @@ const Authors = () => {
   useEffect(() => {
     const fetchAuthors = async () => {
       try {
-        const res = await axios.get(
-          'https://rlaijbartary1.onrender.com/api/Author',
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await axios.get('https://localhost:7158/api/Author', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setAuthors(res.data);
       } catch (err) {
         console.error('Error fetching authors:', err);
@@ -53,12 +50,9 @@ const Authors = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this author?')) {
       try {
-        await axios.delete(
-          `https://rlaijbartary1.onrender.com/api/Author/${id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        await axios.delete(`https://localhost:7158/api/Author/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         toast.success('🗑️ Author deleted successfully!');
         setAuthors(authors.filter((a) => a.authorId !== id));
       } catch (err) {
@@ -73,7 +67,7 @@ const Authors = () => {
     try {
       if (isEditing) {
         await axios.put(
-          'https://rlaijbartary1.onrender.com/api/Author',
+          'https://localhost:7158/api/Author',
           {
             authorId: editAuthorId,
             name: formData.name,
@@ -86,7 +80,7 @@ const Authors = () => {
         toast.success('✅ Author updated successfully!');
       } else {
         await axios.post(
-          'https://rlaijbartary1.onrender.com/api/Author',
+          'https://localhost:7158/api/Author',
           {
             name: formData.name,
             bio: formData.bio,
@@ -103,12 +97,9 @@ const Authors = () => {
       setEditAuthorId(null);
       setFormData({ name: '', bio: '' });
 
-      const res = await axios.get(
-        'https://rlaijbartary1.onrender.com/api/Author',
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.get('https://localhost:7158/api/Author', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setAuthors(res.data);
     } catch (err) {
       console.error('Error submitting form:', err);

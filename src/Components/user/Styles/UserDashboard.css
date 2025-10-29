@@ -1,0 +1,619 @@
+html,
+body,
+#root {
+  min-height: 100%;
+}
+.user-dashboard {
+  padding: 40px;
+  background-color: #f9f9fb;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dashboard-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin-top: 40px;
+}
+
+/* Horizontal scroll container */
+.book-scroll-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+}
+
+/* Hide ugly scrollbar (optional) */
+.book-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+.book-scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.book-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Uniform book card size */
+.book-card {
+  flex: 0 0 200px; /* Fixed width */
+  height: 390px; /* Fixed height */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-card:hover {
+  transform: scale(1.05);
+}
+
+/* Image container */
+.book-image-wrapper {
+  width: 100%;
+  height: 60%;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Book info */
+.book-info {
+  padding: 10px;
+  text-align: center;
+  flex: 1;
+}
+
+.book-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.book-author {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.book-genre {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.book-card {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 200px; /* fixed width for uniform cards */
+  height: 400px; /* fixed height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.book-image-wrapper {
+  height: 280px;
+  overflow: hidden;
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.book-card:hover .book-cover {
+  transform: scale(1.08);
+}
+
+.book-info {
+  padding: 16px;
+  text-align: center;
+  height: 100px; /* fix uneven text height area */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.book-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* show max 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+.book-author {
+  color: #555;
+  font-size: 14px;
+}
+
+.book-genre {
+  color: #777;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.book-hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.book-card:hover .book-hover {
+  opacity: 1;
+}
+
+/* ==== Book Modal ==== */
+.book-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.book-modal {
+  background: #fff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 700px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #ff3b3b;
+}
+
+.modal-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.modal-image img {
+  width: 220px;
+  height: auto;
+  border-radius: 12px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.modal-details {
+  flex: 1;
+}
+
+.modal-details h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.modal-details p {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.modal-desc {
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.cancel-btn,
+.borrow-btn {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.cancel-btn {
+  margin-right: 10px;
+  border: 1px solid #999;
+  background: #f5f5f5;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #e0e0e0;
+}
+
+.borrow-btn {
+  background: #4f46e5;
+  color: white;
+  border: none;
+}
+
+.borrow-btn:hover {
+  background: #4338ca;
+}
+
+/* ==== Overlay ==== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow: hidden; /* Prevent background scroll */
+}
+
+.overlay-modal {
+  background: #fff;
+  width: 35%;
+  max-width: 900px;
+  max-height: 80vh; /* ✅ Restrict modal height */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* keeps content inside */
+  position: relative;
+}
+
+/* Header */
+.overlay-header,
+.overlay-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #ddd;
+  flex-shrink: 0; /* prevent from collapsing on scroll */
+}
+
+.overlay-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+}
+
+.close-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #ff3b3b;
+}
+
+.overlay-filter select {
+  background-color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Book list container */
+.overlay-book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 16px 20px;
+  overflow-y: auto; /* ✅ makes the content scrollable */
+  flex-grow: 1;
+}
+
+/* Individual book in list */
+.list-book-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #f9f9fb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-book-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.list-book-card img {
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Book info */
+.list-book-card .book-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  gap: 10px;
+}
+
+.list-book-card .book-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #222;
+  text-align: left;
+}
+
+.list-book-card .borrow-btn {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.list-book-card .borrow-btn:hover {
+  background: #4338ca;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.book-description {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.Desctitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Borrowings */
+.ub-container {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+
+  padding: 20px;
+
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+.ub-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.ub-table-wrapper {
+  overflow-x: auto;
+}
+
+.ub-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ub-table thead {
+  background-color: #f1f5f9;
+}
+
+.ub-table th,
+.ub-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ub-table th {
+  color: #475569;
+  font-weight: 600;
+}
+
+.ub-table td {
+  color: #334155;
+}
+
+.ub-status {
+  font-weight: 600;
+
+  border-radius: 8px;
+}
+
+.ub-status.borrowed {
+  color: #0369a1;
+}
+
+.ub-status.returned {
+  color: #166534;
+}
+
+.ub-status.overdue {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.ub-loading,
+.ub-empty {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #64748b;
+  margin-top: 2rem;
+}
+
+.borrowed-section {
+  padding: 20px;
+  /* border: 1px solid #ddd; */
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-year {
+  color: #777;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Modal Overlay */
+.ub-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Box */
+.ub-modal {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  width: 80%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.ub-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Close Button */
+.ub-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Modal Body */
+.ub-modal-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.ub-total-fine {
+  margin-top: 1rem;
+  text-align: right;
+  background: #f3f4f6;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e40af;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ub-total-text strong {
+  color: #111827;
+}

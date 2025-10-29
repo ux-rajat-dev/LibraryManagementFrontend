@@ -8,7 +8,7 @@ import DashboardLayout from './Components/admin/dashboard';
 import AdminAuthors from './Components/admin/authors';
 import AdminGenres from './Components/admin/genres';
 import AdminBooks from './Components/admin/books';
-import UserDashboard from './Components/user/dashboard';
+import UserDashboard from './Components/user/UserDashboard';
 import AdminBorrowTransactions from './Components/admin/borrowtransactions';
 import UserManagement from './Components/admin/usermanagement';
 import RoleRedirect from './RoleRedirect';

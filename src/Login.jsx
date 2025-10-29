@@ -5,11 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -24,33 +20,44 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage('');
+    setMessage(''); // Reset message before starting the API call
 
     try {
+      // Making the API call to login with credentials
       const res = await axios.post(
-        'https://rlaijbartary1.onrender.com/api/user/login',
+        'https://localhost:7158/api/user/login',
         formData
       );
 
+      console.log('Login response:', res); // Check the full response
+
       const token = res.data.token;
+      if (!token) {
+        throw new Error('No token returned from API');
+      }
+
+      // Decode JWT to extract user info
+      const decoded = jwtDecode(token);
+      console.log('Decoded JWT:', decoded); // Check the decoded JWT
+
+      // Store the token and user data in localStorage
       localStorage.setItem('token', token);
+      localStorage.setItem('userId', decoded.sub); // User ID from JWT (subject)
+      localStorage.setItem('role', decoded.role); // Role from JWT
+      localStorage.setItem('email', decoded.email);
 
-      const payload = jwtDecode(token);
-      console.log('Decoded JWT:', payload);
-
-      const role = payload.role;
-      localStorage.setItem('role', role);
-
-      if (role === 'admin') {
+      // Check the role and redirect to the corresponding dashboard
+      if (decoded.role === 'admin') {
         navigate('/admin/dashboard');
-      } else if (role === 'user') {
+      } else if (decoded.role === 'user') {
         navigate('/user/dashboard');
       } else {
         setMessage('Unknown role');
+        localStorage.clear(); // Clear local storage if role is unknown
       }
     } catch (err) {
       console.error('Login error:', err.response?.data || err.message);
-      setMessage('Login failed ❌ Please check your credentials');
+      setMessage('❌ Login failed. Please check your credentials');
     } finally {
       setLoading(false);
     }
@@ -107,7 +114,7 @@ const Login = () => {
             {loading ? 'Logging in...' : 'Login'}
           </button>
 
-          {/* Message */}
+          {/* Error Message */}
           {message && (
             <p className="text-center text-sm text-red-500 font-body">
               {message}
@@ -115,7 +122,7 @@ const Login = () => {
           )}
         </form>
 
-        {/* Register Redirect */}
+        {/* Register Link */}
         <p className="text-center text-sm mt-4 font-body">
           Don’t have an account?{' '}
           <Link

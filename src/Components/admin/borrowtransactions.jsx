@@ -46,12 +46,9 @@ const BorrowTransactions = () => {
     const fetchAll = async () => {
       try {
         const [usersRes, booksRes, txRes] = await Promise.all([
-          axios.get('https://rlaijbartary1.onrender.com/api/user', config),
-          axios.get('https://rlaijbartary1.onrender.com/api/Book', config),
-          axios.get(
-            'https://rlaijbartary1.onrender.com/api/borrowtransaction',
-            config
-          ),
+          axios.get('https://localhost:7158/api/user', config),
+          axios.get('https://localhost:7158/api/Book', config),
+          axios.get('https://localhost:7158/api/borrowtransaction', config),
         ]);
 
         // Ensure we handle both object and array responses
@@ -116,10 +113,11 @@ const BorrowTransactions = () => {
         bookId: Number(bookId),
         borrowDate,
         dueDate: finalDueDate,
+        fineAmount: 0,
       };
 
       await axios.post(
-        'https://rlaijbartary1.onrender.com/api/borrowtransaction/borrow',
+        'https://localhost:7158/api/borrowtransaction/borrow',
         payload,
         config
       );
@@ -128,7 +126,7 @@ const BorrowTransactions = () => {
       setIsBorrowModalOpen(false);
 
       const txRes = await axios.get(
-        'https://rlaijbartary1.onrender.com/api/borrowtransaction',
+        'https://localhost:7158/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);
@@ -146,22 +144,38 @@ const BorrowTransactions = () => {
 
   const handleSubmitReturn = async (e) => {
     e.preventDefault();
+
+    if (!returnForm.returnDate) {
+      alert('Please select a return date');
+      return;
+    }
+
+    const payload = {
+      transactionId: returnForm.transactionId,
+      returnDate: returnForm.returnDate,
+    };
+
     try {
       await axios.put(
-        'https://rlaijbartary1.onrender.com/api/borrowtransaction/return',
-        returnForm,
+        'https://localhost:7158/api/borrowtransaction/return',
+        payload,
         config
       );
+
       toast.success('✅ Book returned successfully');
       setIsReturnModalOpen(false);
+
       const txRes = await axios.get(
-        'https://rlaijbartary1.onrender.com/api/borrowtransaction',
+        'https://localhost:7158/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);
     } catch (err) {
-      console.error(err);
-      toast.error('❌ Failed to return book');
+      console.error('Return API error:', err.response || err);
+      console.log('Transactions after return:', txRes.data);
+      toast.error(
+        `❌ Failed to return book: ${err.response?.data?.title || err.message}`
+      );
     }
   };
 
@@ -268,7 +282,6 @@ const BorrowTransactions = () => {
                         className="text-green-600 font-semibold flex items-center justify-center gap-1"
                         title="Returned"
                       >
-                        {/* You can use a checkmark icon here */}
                         Book Received
                       </span>
                     )}
