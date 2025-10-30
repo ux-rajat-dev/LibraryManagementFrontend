@@ -1,5 +1,6 @@
 // src/App.jsx
 import { Routes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Login from './Login';
 import Register from './Register';
 import DashboardWelcome from './Welcome';
@@ -16,51 +17,59 @@ import History from './Components/admin/history';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+    <>
+      {/* Global title and favicon */}
+      <Helmet>
+        <title>Library Management System</title>
+        <link rel="icon" href="/Favicon.ico" />
+      </Helmet>
 
-      {/* Redirect root based on role */}
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <RoleRedirect />
-          </ProtectedRoute>
-        }
-      />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      {/* Admin Dashboard */}
-      <Route
-        path="/admin/dashboard"
-        element={
-          <ProtectedRoute role="admin">
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<DashboardWelcome />} />
-        <Route path="authors" element={<AdminAuthors />} />
-        <Route path="genres" element={<AdminGenres />} />
-        <Route path="books" element={<AdminBooks />} />
-        <Route path="users" element={<UserManagement />} />
+        {/* Redirect root based on role */}
         <Route
-          path="borrowtransactions"
-          element={<AdminBorrowTransactions />}
+          path="/"
+          element={
+            <ProtectedRoute>
+              <RoleRedirect />
+            </ProtectedRoute>
+          }
         />
-        <Route path="borrowtransactions/history" element={<History />} />
-      </Route>
 
-      {/* User Dashboard */}
-      <Route
-        path="/user/dashboard"
-        element={
-          <ProtectedRoute role="user">
-            <UserDashboard />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+        {/* Admin Dashboard */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute role="admin">
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<DashboardWelcome />} />
+          <Route path="authors" element={<AdminAuthors />} />
+          <Route path="genres" element={<AdminGenres />} />
+          <Route path="books" element={<AdminBooks />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route
+            path="borrowtransactions"
+            element={<AdminBorrowTransactions />}
+          />
+          <Route path="borrowtransactions/history" element={<History />} />
+        </Route>
+
+        {/* User Dashboard */}
+        <Route
+          path="/user/dashboard"
+          element={
+            <ProtectedRoute role="user">
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </>
   );
 };
 
