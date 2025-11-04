@@ -26,9 +26,12 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('https://localhost:7158/api/user', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setUsers(res.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -62,7 +65,7 @@ const UserManagement = () => {
       try {
         // Perform the delete request
         const response = await axios.delete(
-          `https://localhost:7158/api/user/${id}`,
+          `https://librarymanagementbackend-oqjx.onrender.com/api/user/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -96,14 +99,22 @@ const UserManagement = () => {
       if (isEditing) {
         payload.userId = editUserId;
         delete payload.passwordHash; // avoid changing password on edit
-        await axios.put('https://localhost:7158/api/user', payload, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.put(
+          'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+          payload,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('✅ User updated successfully!');
       } else {
-        await axios.post('https://localhost:7158/api/user', payload, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.post(
+          'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+          payload,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('✅ User added successfully!');
       }
 

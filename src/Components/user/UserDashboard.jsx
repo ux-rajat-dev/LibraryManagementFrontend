@@ -29,7 +29,9 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const res = await axios.get('https://localhost:7158/api/Genre');
+        const res = await axios.get(
+          'https://librarymanagementbackend-oqjx.onrender.com/api/Genre'
+        );
 
         setGenres(res.data);
       } catch (error) {
@@ -45,10 +47,13 @@ const UserDashboard = () => {
     const startSignalR = async () => {
       try {
         const conn = new HubConnectionBuilder()
-          .withUrl('https://localhost:7158/notificationHub', {
-            accessTokenFactory: () => localStorage.getItem('token'),
-            transport: HttpTransportType.WebSockets,
-          })
+          .withUrl(
+            'https://librarymanagementbackend-oqjx.onrender.com/notificationHub',
+            {
+              accessTokenFactory: () => localStorage.getItem('token'),
+              transport: HttpTransportType.WebSockets,
+            }
+          )
           .withAutomaticReconnect()
           .build();
 
@@ -57,13 +62,15 @@ const UserDashboard = () => {
           console.log('SignalR message received:', message);
           // Refetch books
           try {
-            const booksRes = await axios.get('https://localhost:7158/api/Book');
+            const booksRes = await axios.get(
+              'https://librarymanagementbackend-oqjx.onrender.com/api/Book'
+            );
             setBooks(booksRes.data);
             // Refetch borrowings
             const token = localStorage.getItem('token');
             const userEmail = localStorage.getItem('email');
             const borrowRes = await axios.get(
-              'https://localhost:7158/api/borrowtransaction',
+              'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
               { headers: { Authorization: `Bearer ${token}` } }
             );
             setBorrowings(
@@ -104,7 +111,9 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get('https://localhost:7158/api/Book');
+        const res = await axios.get(
+          'https://librarymanagementbackend-oqjx.onrender.com/api/Book'
+        );
         setBooks(res.data);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -146,7 +155,7 @@ const UserDashboard = () => {
       };
 
       await axios.post(
-        'https://localhost:7158/api/borrowtransaction/borrow',
+        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction/borrow',
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -191,7 +200,7 @@ const UserDashboard = () => {
         const userEmail = localStorage.getItem('email');
 
         const response = await fetch(
-          'https://localhost:7158/api/borrowtransaction',
+          'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
           {
             headers: { Authorization: `Bearer ${token}` },
           }

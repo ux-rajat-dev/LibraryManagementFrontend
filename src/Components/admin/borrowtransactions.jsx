@@ -46,9 +46,18 @@ const BorrowTransactions = () => {
     const fetchAll = async () => {
       try {
         const [usersRes, booksRes, txRes] = await Promise.all([
-          axios.get('https://localhost:7158/api/user', config),
-          axios.get('https://localhost:7158/api/Book', config),
-          axios.get('https://localhost:7158/api/borrowtransaction', config),
+          axios.get(
+            'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+            config
+          ),
+          axios.get(
+            'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+            config
+          ),
+          axios.get(
+            'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
+            config
+          ),
         ]);
 
         // Ensure we handle both object and array responses
@@ -117,7 +126,7 @@ const BorrowTransactions = () => {
       };
 
       await axios.post(
-        'https://localhost:7158/api/borrowtransaction/borrow',
+        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction/borrow',
         payload,
         config
       );
@@ -126,7 +135,7 @@ const BorrowTransactions = () => {
       setIsBorrowModalOpen(false);
 
       const txRes = await axios.get(
-        'https://localhost:7158/api/borrowtransaction',
+        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);
@@ -157,7 +166,7 @@ const BorrowTransactions = () => {
 
     try {
       await axios.put(
-        'https://localhost:7158/api/borrowtransaction/return',
+        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction/return',
         payload,
         config
       );
@@ -166,7 +175,7 @@ const BorrowTransactions = () => {
       setIsReturnModalOpen(false);
 
       const txRes = await axios.get(
-        'https://localhost:7158/api/borrowtransaction',
+        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);
@@ -345,7 +354,6 @@ const BorrowTransactions = () => {
                 ))}
               </select>
 
-              {/* Borrow Date & Due Date Pickers wrapped in one LocalizationProvider */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="flex gap-4">
                   <DatePicker
@@ -364,6 +372,7 @@ const BorrowTransactions = () => {
                         borrowDate: formatted,
                       }));
                     }}
+                    maxDate={dayjs()}
                     renderInput={(params) => (
                       <TextField
                         {...params}

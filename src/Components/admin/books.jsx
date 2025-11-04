@@ -36,9 +36,12 @@ const Books = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get('https://localhost:7158/api/Book', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.get(
+          'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setBooks(res.data);
       } catch (err) {
         console.error('Error fetching books:', err);
@@ -50,12 +53,18 @@ const Books = () => {
     const fetchDropdowns = async () => {
       try {
         const [authorRes, genreRes] = await Promise.all([
-          axios.get('localhost:7158/api/Author', {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get('https://localhost:7158/api/Genre', {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
+          axios.get(
+            'https://librarymanagementbackend-oqjx.onrender.com/api/Author',
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
+          axios.get(
+            'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          ),
         ]);
         setAuthors(authorRes.data);
         setGenres(genreRes.data);
@@ -97,9 +106,12 @@ const Books = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this book?')) {
       try {
-        await axios.delete(`https://localhost:7158/api/Book/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.delete(
+          `https://librarymanagementbackend-oqjx.onrender.com/api/Book/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('🗑️ Book deleted successfully!');
         setBooks(books.filter((b) => b.bookId !== id));
       } catch (err) {
@@ -115,7 +127,7 @@ const Books = () => {
     try {
       if (isEditing) {
         await axios.put(
-          'https://localhost:7158/api/Book',
+          'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
           {
             bookId: editBookId,
             ...formData,
@@ -127,9 +139,13 @@ const Books = () => {
         );
         toast.success('✅ Book updated successfully!');
       } else {
-        await axios.post('https://localhost:7158/api/Book', formData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.post(
+          'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('📚 Book added successfully!');
       }
 
@@ -137,9 +153,12 @@ const Books = () => {
       setIsEditing(false);
       setEditBookId(null);
 
-      const res = await axios.get('https://localhost:7158/api/Book', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setBooks(res.data);
     } catch (err) {
       console.error('Error submitting form:', err);
@@ -163,7 +182,6 @@ const Books = () => {
     <div className="flex flex-col h-full w-full p-6 font-body">
       <ToastContainer />
 
-      {/* Top Controls */}
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={() => navigate(-1)}
@@ -194,7 +212,6 @@ const Books = () => {
         </button>
       </div>
 
-      {/* Search & Filter */}
       <div className="flex justify-end mb-4">
         <div className="flex items-center gap-2">
           <div className="flex items-center border rounded-lg px-3 py-2 bg-white shadow-sm w-64">
@@ -224,7 +241,6 @@ const Books = () => {
         </div>
       </div>
 
-      {/* Table */}
       <div className="flex-1 overflow-y-auto bg-white rounded-lg shadow">
         {loading ? (
           <p className="text-gray-600 p-4">Loading books...</p>
@@ -246,7 +262,6 @@ const Books = () => {
               {filteredBooks.map((book, index) => (
                 <tr key={book.bookId} className="border-b hover:bg-gray-50">
                   <td className="px-4 py-3">{index + 1}</td>{' '}
-                  {/* Serial number */}
                   <td className="px-4 py-3">{book.title}</td>
                   <td className="px-4 py-3">{book.authorName}</td>
                   <td className="px-4 py-3">{book.genreName}</td>
@@ -276,7 +291,6 @@ const Books = () => {
         )}
       </div>
 
-      {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
           <div className="bg-white rounded-lg p-6 w-full max-w-xl shadow-lg relative font-body">
@@ -295,7 +309,6 @@ const Books = () => {
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4 font-body">
-              {/* Title */}
               <label className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-4">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   Title:
@@ -312,7 +325,6 @@ const Books = () => {
                 />
               </label>
 
-              {/* Description */}
               <label className="flex flex-col md:flex-row md:items-start md:space-x-4 mb-4">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   Description:
@@ -329,7 +341,6 @@ const Books = () => {
                 />
               </label>
 
-              {/* Author */}
               <label className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-4">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   Author:
@@ -350,7 +361,6 @@ const Books = () => {
                 </select>
               </label>
 
-              {/* Genre */}
               <label className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-4">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   Genre:
@@ -371,7 +381,6 @@ const Books = () => {
                 </select>
               </label>
 
-              {/* ISBN */}
               <label className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-4">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   ISBN:
@@ -388,7 +397,6 @@ const Books = () => {
                 />
               </label>
 
-              {/* Total Copies */}
               <label className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-4">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   Total Copies:
@@ -405,7 +413,6 @@ const Books = () => {
                 />
               </label>
 
-              {/* Published Year */}
               <label className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-4">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   Published Year:
@@ -422,7 +429,6 @@ const Books = () => {
                 />
               </label>
 
-              {/* Cover Image URL */}
               <label className="flex flex-col md:flex-row md:items-center md:space-x-4 mb-6">
                 <span className="mb-1 md:mb-0 w-full md:w-32 font-semibold text-gray-700">
                   Cover Image URL:

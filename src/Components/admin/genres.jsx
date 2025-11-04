@@ -26,9 +26,12 @@ const Genres = () => {
 
   const fetchGenres = async () => {
     try {
-      const res = await axios.get('https://localhost:7158/api/Genre', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setGenres(res.data);
     } catch (err) {
       console.error('Error fetching genres:', err);
@@ -51,9 +54,12 @@ const Genres = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this genre?')) {
       try {
-        await axios.delete(`https://localhost:7158/api/Genre/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.delete(
+          `https://librarymanagementbackend-oqjx.onrender.com/api/Genre/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('🗑️ Genre deleted successfully!');
         setGenres(genres.filter((g) => g.genreId !== id));
       } catch (err) {
@@ -69,15 +75,19 @@ const Genres = () => {
     try {
       if (isEditing) {
         await axios.put(
-          'https://localhost:7158/api/Genre',
+          'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
           { genreId: editGenreId, ...formData },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success('✅ Genre updated successfully!');
       } else {
-        await axios.post('https://localhost:7158/api/Genre', formData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.post(
+          'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         toast.success('🎉 Genre created successfully!');
       }
 
@@ -100,7 +110,6 @@ const Genres = () => {
     <div className="flex flex-col h-full w-full p-6 font-body">
       <ToastContainer />
 
-      {/* Top Controls */}
       <div className="flex justify-between items-center mb-4">
         <button
           onClick={() => navigate(-1)}
@@ -121,7 +130,6 @@ const Genres = () => {
         </button>
       </div>
 
-      {/* Search */}
       <div className="flex justify-end mb-4">
         <div className="flex items-center border rounded-lg px-3 py-2 bg-white shadow-sm w-64">
           <FaSearch className="text-gray-400 mr-2" />
@@ -135,7 +143,6 @@ const Genres = () => {
         </div>
       </div>
 
-      {/* Table */}
       <div className="flex-1 overflow-y-auto bg-white rounded-lg shadow">
         {loading ? (
           <p className="text-gray-600 p-4">Loading genres...</p>
@@ -152,7 +159,6 @@ const Genres = () => {
               {filteredGenres.map((genre, index) => (
                 <tr key={genre.genreId} className="border-b hover:bg-gray-50">
                   <td className="px-4 py-3">{index + 1}</td>{' '}
-                  {/* This will start the numbering from 1 */}
                   <td className="px-4 py-3">{genre.name}</td>
                   <td className="px-4 py-3 text-center space-x-4">
                     <button
@@ -177,7 +183,6 @@ const Genres = () => {
         )}
       </div>
 
-      {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
           <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative font-body">
