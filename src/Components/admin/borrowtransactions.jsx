@@ -47,15 +47,15 @@ const BorrowTransactions = () => {
       try {
         const [usersRes, booksRes, txRes] = await Promise.all([
           axios.get(
-            'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+            'https://librarymanagement-ry5j.onrender.com/api/user',
             config
           ),
           axios.get(
-            'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+            'https://librarymanagement-ry5j.onrender.com/api/Book',
             config
           ),
           axios.get(
-            'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
+            'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction',
             config
           ),
         ]);
@@ -126,7 +126,7 @@ const BorrowTransactions = () => {
       };
 
       await axios.post(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction/borrow',
+        'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction/borrow',
         payload,
         config
       );
@@ -135,7 +135,7 @@ const BorrowTransactions = () => {
       setIsBorrowModalOpen(false);
 
       const txRes = await axios.get(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
+        'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);
@@ -166,7 +166,7 @@ const BorrowTransactions = () => {
 
     try {
       await axios.put(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction/return',
+        'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction/return',
         payload,
         config
       );
@@ -175,7 +175,7 @@ const BorrowTransactions = () => {
       setIsReturnModalOpen(false);
 
       const txRes = await axios.get(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
+        'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction',
         config
       );
       setTransactions(txRes.data);

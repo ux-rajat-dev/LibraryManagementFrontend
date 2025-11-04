@@ -23,7 +23,7 @@ const Authors = () => {
     const fetchAuthors = async () => {
       try {
         const res = await axios.get(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Author',
+          'https://librarymanagement-ry5j.onrender.com/api/Author',
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -54,7 +54,7 @@ const Authors = () => {
     if (window.confirm('Are you sure you want to delete this author?')) {
       try {
         await axios.delete(
-          `https://librarymanagementbackend-oqjx.onrender.com/api/Author/${id}`,
+          `https://librarymanagement-ry5j.onrender.com/api/Author/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -73,7 +73,7 @@ const Authors = () => {
     try {
       if (isEditing) {
         await axios.put(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Author',
+          'https://librarymanagement-ry5j.onrender.com/api/Author',
           {
             authorId: editAuthorId,
             name: formData.name,
@@ -86,7 +86,7 @@ const Authors = () => {
         toast.success('✅ Author updated successfully!');
       } else {
         await axios.post(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Author',
+          'https://librarymanagement-ry5j.onrender.com/api/Author',
           {
             name: formData.name,
             bio: formData.bio,
@@ -104,7 +104,7 @@ const Authors = () => {
       setFormData({ name: '', bio: '' });
 
       const res = await axios.get(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/Author',
+        'https://librarymanagement-ry5j.onrender.com/api/Author',
         {
           headers: { Authorization: `Bearer ${token}` },
         }

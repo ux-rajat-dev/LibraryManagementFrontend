@@ -37,7 +37,7 @@ const Books = () => {
     const fetchBooks = async () => {
       try {
         const res = await axios.get(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+          'https://librarymanagement-ry5j.onrender.com/api/Book',
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -53,18 +53,12 @@ const Books = () => {
     const fetchDropdowns = async () => {
       try {
         const [authorRes, genreRes] = await Promise.all([
-          axios.get(
-            'https://librarymanagementbackend-oqjx.onrender.com/api/Author',
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          ),
-          axios.get(
-            'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          ),
+          axios.get('https://librarymanagement-ry5j.onrender.com/api/Author', {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          axios.get('https://librarymanagement-ry5j.onrender.com/api/Genre', {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
         ]);
         setAuthors(authorRes.data);
         setGenres(genreRes.data);
@@ -107,7 +101,7 @@ const Books = () => {
     if (window.confirm('Are you sure you want to delete this book?')) {
       try {
         await axios.delete(
-          `https://librarymanagementbackend-oqjx.onrender.com/api/Book/${id}`,
+          `https://librarymanagement-ry5j.onrender.com/api/Book/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -127,7 +121,7 @@ const Books = () => {
     try {
       if (isEditing) {
         await axios.put(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+          'https://librarymanagement-ry5j.onrender.com/api/Book',
           {
             bookId: editBookId,
             ...formData,
@@ -140,7 +134,7 @@ const Books = () => {
         toast.success('✅ Book updated successfully!');
       } else {
         await axios.post(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+          'https://librarymanagement-ry5j.onrender.com/api/Book',
           formData,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -154,7 +148,7 @@ const Books = () => {
       setEditBookId(null);
 
       const res = await axios.get(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/Book',
+        'https://librarymanagement-ry5j.onrender.com/api/Book',
         {
           headers: { Authorization: `Bearer ${token}` },
         }

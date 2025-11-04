@@ -27,7 +27,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/User/register',
+        'https://librarymanagement-ry5j.onrender.com/api/User/register',
         formData
       );
       setMessage('Registration successful ✅');

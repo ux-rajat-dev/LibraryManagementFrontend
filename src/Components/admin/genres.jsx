@@ -27,7 +27,7 @@ const Genres = () => {
   const fetchGenres = async () => {
     try {
       const res = await axios.get(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
+        'https://librarymanagement-ry5j.onrender.com/api/Genre',
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -55,7 +55,7 @@ const Genres = () => {
     if (window.confirm('Are you sure you want to delete this genre?')) {
       try {
         await axios.delete(
-          `https://librarymanagementbackend-oqjx.onrender.com/api/Genre/${id}`,
+          `https://librarymanagement-ry5j.onrender.com/api/Genre/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -75,14 +75,14 @@ const Genres = () => {
     try {
       if (isEditing) {
         await axios.put(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
+          'https://librarymanagement-ry5j.onrender.com/api/Genre',
           { genreId: editGenreId, ...formData },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success('✅ Genre updated successfully!');
       } else {
         await axios.post(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Genre',
+          'https://librarymanagement-ry5j.onrender.com/api/Genre',
           formData,
           {
             headers: { Authorization: `Bearer ${token}` },

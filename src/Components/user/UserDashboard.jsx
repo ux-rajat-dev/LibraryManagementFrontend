@@ -30,7 +30,7 @@ const UserDashboard = () => {
     const fetchGenres = async () => {
       try {
         const res = await axios.get(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Genre'
+          'https://librarymanagement-ry5j.onrender.com/api/Genre'
         );
 
         setGenres(res.data);
@@ -48,7 +48,7 @@ const UserDashboard = () => {
       try {
         const conn = new HubConnectionBuilder()
           .withUrl(
-            'https://librarymanagementbackend-oqjx.onrender.com/notificationHub',
+            'https://librarymanagement-ry5j.onrender.com/notificationHub',
             {
               accessTokenFactory: () => localStorage.getItem('token'),
               transport: HttpTransportType.WebSockets,
@@ -63,14 +63,14 @@ const UserDashboard = () => {
           // Refetch books
           try {
             const booksRes = await axios.get(
-              'https://librarymanagementbackend-oqjx.onrender.com/api/Book'
+              'https://librarymanagement-ry5j.onrender.com/api/Book'
             );
             setBooks(booksRes.data);
             // Refetch borrowings
             const token = localStorage.getItem('token');
             const userEmail = localStorage.getItem('email');
             const borrowRes = await axios.get(
-              'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
+              'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction',
               { headers: { Authorization: `Bearer ${token}` } }
             );
             setBorrowings(
@@ -112,7 +112,7 @@ const UserDashboard = () => {
     const fetchBooks = async () => {
       try {
         const res = await axios.get(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/Book'
+          'https://librarymanagement-ry5j.onrender.com/api/Book'
         );
         setBooks(res.data);
       } catch (error) {
@@ -155,7 +155,7 @@ const UserDashboard = () => {
       };
 
       await axios.post(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction/borrow',
+        'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction/borrow',
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -200,7 +200,7 @@ const UserDashboard = () => {
         const userEmail = localStorage.getItem('email');
 
         const response = await fetch(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
+          'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction',
           {
             headers: { Authorization: `Bearer ${token}` },
           }

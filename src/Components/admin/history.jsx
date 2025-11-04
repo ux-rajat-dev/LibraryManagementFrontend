@@ -25,7 +25,7 @@ const History = () => {
     const fetchHistory = async () => {
       try {
         const res = await axios.get(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/borrowtransaction',
+          'https://librarymanagement-ry5j.onrender.com/api/borrowtransaction',
           config
         );
         const returnedOnly = res.data.filter(

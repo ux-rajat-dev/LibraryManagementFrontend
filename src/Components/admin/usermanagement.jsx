@@ -27,7 +27,7 @@ const UserManagement = () => {
   const fetchUsers = async () => {
     try {
       const res = await axios.get(
-        'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+        'https://librarymanagement-ry5j.onrender.com/api/user',
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -65,7 +65,7 @@ const UserManagement = () => {
       try {
         // Perform the delete request
         const response = await axios.delete(
-          `https://librarymanagementbackend-oqjx.onrender.com/api/user/${id}`,
+          `https://librarymanagement-ry5j.onrender.com/api/user/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -100,7 +100,7 @@ const UserManagement = () => {
         payload.userId = editUserId;
         delete payload.passwordHash; // avoid changing password on edit
         await axios.put(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+          'https://librarymanagement-ry5j.onrender.com/api/user',
           payload,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -109,7 +109,7 @@ const UserManagement = () => {
         toast.success('✅ User updated successfully!');
       } else {
         await axios.post(
-          'https://librarymanagementbackend-oqjx.onrender.com/api/user',
+          'https://librarymanagement-ry5j.onrender.com/api/user',
           payload,
           {
             headers: { Authorization: `Bearer ${token}` },
