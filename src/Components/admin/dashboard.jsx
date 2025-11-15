@@ -83,6 +83,13 @@ const Dashboard = () => {
           >
             <FaUser /> Users
           </NavLink>
+          <NavLink
+            to="/login"
+            onClick={() => localStorage.removeItem('token')}
+            className="flex items-center gap-2 px-3 py-2 mt-10 rounded-md font-body bg-red-500 hover:bg-red-600 transition-colors duration-200"
+          >
+            🚪 Logout
+          </NavLink>
         </nav>
       </div>
 
