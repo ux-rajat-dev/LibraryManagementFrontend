@@ -6,6 +6,7 @@ import {
   FaBook,
   FaClipboardList,
   FaUser,
+  FaSignOutAlt,
 } from 'react-icons/fa';
 
 const Dashboard = () => {
@@ -16,7 +17,6 @@ const Dashboard = () => {
         <h2 className="text-xl font-heading font-bold mb-6">📚 Library</h2>
 
         <nav className="space-y-2">
-          {/* This is for Authors*/}
           <NavLink
             to="authors"
             className={({ isActive }) =>
@@ -30,7 +30,6 @@ const Dashboard = () => {
             <FaUserAlt /> Authors
           </NavLink>
 
-          {/* This is for Genres*/}
           <NavLink
             to="genres"
             className={({ isActive }) =>
@@ -44,7 +43,6 @@ const Dashboard = () => {
             <FaTags /> Genres
           </NavLink>
 
-          {/* This is for Books*/}
           <NavLink
             to="books"
             className={({ isActive }) =>
@@ -58,7 +56,6 @@ const Dashboard = () => {
             <FaBook /> Books
           </NavLink>
 
-          {/* This is for Borrow Transactions */}
           <NavLink
             to="borrowtransactions"
             className={({ isActive }) =>
@@ -86,9 +83,15 @@ const Dashboard = () => {
           <NavLink
             to="/login"
             onClick={() => localStorage.removeItem('token')}
-            className="flex items-center gap-2 px-3 py-2 mt-10 rounded-md font-body bg-red-500 hover:bg-red-600 transition-colors duration-200"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-2 mt-10 rounded-md font-body transition-colors duration-200 ${
+                isActive
+                  ? 'bg-white text-indigo-700 font-semibold shadow'
+                  : 'text-white hover:text-gray-200'
+              }`
+            }
           >
-            🚪 Logout
+            <FaSignOutAlt /> Logout
           </NavLink>
         </nav>
       </div>
